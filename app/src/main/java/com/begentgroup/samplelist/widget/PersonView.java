@@ -1,10 +1,13 @@
 package com.begentgroup.samplelist.widget;
 
 import android.content.Context;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.begentgroup.samplelist.R;
@@ -13,14 +16,14 @@ import com.begentgroup.samplelist.data.Person;
 /**
  * Created by Administrator on 2016-07-13.
  */
-public class PersonView extends FrameLayout {
+public class PersonView extends RelativeLayout {
     public PersonView(Context context) {
         this(context, null);
     }
 
     public PersonView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init();
+        init(attrs);
     }
 
     ImageView photoView;
@@ -35,9 +38,11 @@ public class PersonView extends FrameLayout {
         mListener = listener;
     }
 
-    private void init() {
+    private void init(AttributeSet attrs) {
 //        LayoutInflater inflater = LayoutInflater.from(getContext());
 //        inflater.inflate(R.layout.view_person, this);
+
+
         inflate(getContext(), R.layout.view_person, this);
         photoView = (ImageView)findViewById(R.id.image_photo);
         nameView = (TextView)findViewById(R.id.text_name);
@@ -50,6 +55,32 @@ public class PersonView extends FrameLayout {
                 }
             }
         });
+
+        if (attrs != null) {
+            TypedArray ta = getContext().obtainStyledAttributes(attrs, R.styleable.PersonView);
+            String name = ta.getString(R.styleable.PersonView_my_name);
+            Person p = new Person();
+            if (!TextUtils.isEmpty(name)) {
+                nameView.setText(name);
+                p.setName(name);
+                person = p;
+            }
+            int age = ta.getInt(R.styleable.PersonView_my_age, -1);
+            if (age != -1) {
+                ageView.setText("" + age);
+                p.setAge(age);
+                person  = p;
+            }
+
+            Drawable d = ta.getDrawable(R.styleable.PersonView_my_photo);
+            if (d != null) {
+                photoView.setImageDrawable(d);
+                p.setPhoto(d);
+                person = p;
+            }
+            ta.recycle();
+        }
+
     }
 
     Person person;
