@@ -3,9 +3,13 @@ package com.begentgroup.samplelist;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.begentgroup.samplelist.data.Person;
 import com.begentgroup.samplelist.widget.PersonView;
@@ -18,11 +22,28 @@ public class CustomListActivity extends AppCompatActivity {
     PersonAdapter mAdapter;
     ImageView pictureView;
 
+    EditText inputView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_custom_list);
         listView = (ListView)findViewById(R.id.listView3);
+
+        View headerView = getLayoutInflater().inflate(R.layout.header_list_item, null);
+        inputView = (EditText)headerView.findViewById(R.id.edit_input);
+        Button btn = (Button)headerView.findViewById(R.id.btn_search);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = inputView.getText().toString();
+                if (!TextUtils.isEmpty(text)) {
+                    Toast.makeText(CustomListActivity.this, "input : " + text, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
         pictureView = (ImageView)findViewById(R.id.image_picture);
         pictureView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,6 +60,7 @@ public class CustomListActivity extends AppCompatActivity {
                 pictureView.setVisibility(View.VISIBLE);
             }
         });
+        listView.addHeaderView(headerView, null, false);
         listView.setAdapter(mAdapter);
         initData();
     }

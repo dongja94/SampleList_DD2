@@ -20,7 +20,10 @@ public class ChoiceListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choice_list);
+
         listView = (ListView)findViewById(R.id.listView2);
+
+
 //        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice);
 //        listView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice);
