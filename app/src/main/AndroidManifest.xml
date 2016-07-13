@@ -21,7 +21,8 @@
         <activity
             android:name=".ChoiceListActivity"
             android:exported="true" />
-        <activity android:name=".CustomListActivity"></activity>
+        <activity android:name=".CustomListActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

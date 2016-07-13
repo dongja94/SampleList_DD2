@@ -49,7 +49,11 @@ public class PersonAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         PersonView view;
-        view = new PersonView(parent.getContext());
+        if (convertView == null) {
+            view = new PersonView(parent.getContext());
+        } else {
+            view = (PersonView)convertView;
+        }
         view.setPerson(items.get(position));
         return view;
     }
