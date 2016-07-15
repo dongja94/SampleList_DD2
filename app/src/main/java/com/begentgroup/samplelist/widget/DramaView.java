@@ -1,8 +1,8 @@
 package com.begentgroup.samplelist.widget;
 
 import android.content.Context;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.begentgroup.samplelist.R;
@@ -11,7 +11,7 @@ import com.begentgroup.samplelist.data.Drama;
 /**
  * Created by Administrator on 2016-07-15.
  */
-public class DramaView extends FrameLayout{
+public class DramaView extends RelativeLayout{
     public DramaView(Context context) {
         super(context);
         init();

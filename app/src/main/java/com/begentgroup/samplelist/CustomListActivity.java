@@ -30,6 +30,8 @@ public class CustomListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_custom_list);
         listView = (ListView)findViewById(R.id.listView3);
 
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+
         View headerView = getLayoutInflater().inflate(R.layout.header_list_item, null);
         inputView = (EditText)headerView.findViewById(R.id.edit_input);
         Button btn = (Button)headerView.findViewById(R.id.btn_search);
