@@ -124,7 +124,7 @@ public class ActorAdapter extends BaseAdapter {
             if (position < actor.dramas.size()) {
                 return actor.dramas.get(position);
             }
-            position -= actor.movies.size();
+            position -= actor.dramas.size();
         }
         if (actor.comments.size() > 0) {
             if (position == 0) {
@@ -203,7 +203,7 @@ public class ActorAdapter extends BaseAdapter {
                 view.setDrama(actor.dramas.get(position));
                 return view;
             }
-            position -= actor.movies.size();
+            position -= actor.dramas.size();
         }
         if (actor.comments.size() > 0) {
             if (position == 0) {
