@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016-07-15.
  */
-public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder> {
+public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder> implements PersonViewHolder.OnPersonItemClickListener {
     List<Person> items = new ArrayList<>();
     public void add(Person p) {
         items.add(p);
@@ -24,7 +24,9 @@ public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder
     public PersonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.view_person_recycler, parent, false);
-        return new PersonViewHolder(view);
+        PersonViewHolder holder = new PersonViewHolder(view);
+        holder.setOnPersonItemClickListener(this);
+        return holder;
     }
 
     @Override
@@ -35,5 +37,21 @@ public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder
     @Override
     public int getItemCount() {
         return items.size();
+    }
+
+    public interface OnAdapterItemClickLIstener {
+        public void onAdapterItemClick(View view, Person person, int position);
+    }
+
+    OnAdapterItemClickLIstener listener;
+    public void setOnAdapterItemClickListener(OnAdapterItemClickLIstener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onPersonItemClick(View view, Person person, int position) {
+        if (listener != null) {
+            listener.onAdapterItemClick(view, person, position);
+        }
     }
 }

@@ -3,8 +3,10 @@ package com.begentgroup.samplelist;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.begentgroup.samplelist.data.Person;
 
@@ -20,12 +22,18 @@ public class RecyclerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recycler);
         listView = (RecyclerView)findViewById(R.id.rv_list);
         mAdapter = new RecyclerPersonAdapter();
+        mAdapter.setOnAdapterItemClickListener(new RecyclerPersonAdapter.OnAdapterItemClickLIstener() {
+            @Override
+            public void onAdapterItemClick(View view, Person person, int position) {
+                Toast.makeText(RecyclerActivity.this, "person : " + person.getName(), Toast.LENGTH_SHORT).show();
+            }
+        });
         listView.setAdapter(mAdapter);
 
-//        LinearLayoutManager manager =
-//                new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        GridLayoutManager manager =
-                new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false);
+        LinearLayoutManager manager =
+                new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+//        GridLayoutManager manager =
+//                new GridLayoutManager(this, 2, GridLayoutManager.HORIZONTAL, false);
         listView.setLayoutManager(manager);
 
         initData();
