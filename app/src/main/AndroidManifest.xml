@@ -25,7 +25,8 @@
             android:name=".CustomListActivity"
             android:exported="true" />
         <activity android:name=".MultiListActivity" />
-        <activity android:name=".ActorInfoActivity"></activity>
+        <activity android:name=".ActorInfoActivity" />
+        <activity android:name=".ExpandableListActivity"></activity>
     </application>
 
 </manifest>
