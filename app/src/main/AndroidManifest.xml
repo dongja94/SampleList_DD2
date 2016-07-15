@@ -26,7 +26,8 @@
             android:exported="true" />
         <activity android:name=".MultiListActivity" />
         <activity android:name=".ActorInfoActivity" />
-        <activity android:name=".ExpandableListActivity"></activity>
+        <activity android:name=".ExpandableListActivity" />
+        <activity android:name=".SpinnerActivity"></activity>
     </application>
 
 </manifest>
