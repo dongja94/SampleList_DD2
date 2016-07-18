@@ -1,6 +1,7 @@
 package com.begentgroup.samplelist;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,16 @@ import java.util.List;
  */
 public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder> implements PersonViewHolder.OnPersonItemClickListener {
     List<Person> items = new ArrayList<>();
+    SparseBooleanArray itemSelected = new SparseBooleanArray();
+    int checkedPosition = INVALID_POSITION;
+
+    public static final int INVALID_POSITION = -1;
+
+    public static final int CHOICE_MODE_SINGLE = 0;
+    public static final int CHOICE_MODE_MULTIPLE = 1;
+
+    private int mode = CHOICE_MODE_SINGLE;
+
     public void add(Person p) {
         items.add(p);
         notifyDataSetChanged();
@@ -32,6 +43,11 @@ public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder
     @Override
     public void onBindViewHolder(PersonViewHolder holder, int position) {
         holder.setPerson(items.get(position));
+        if (mode == CHOICE_MODE_SINGLE) {
+            holder.setChecked(checkedPosition == position);
+        } else {
+            holder.setChecked(itemSelected.get(position));
+        }
     }
 
     @Override
@@ -50,8 +66,56 @@ public class RecyclerPersonAdapter extends RecyclerView.Adapter<PersonViewHolder
 
     @Override
     public void onPersonItemClick(View view, Person person, int position) {
+
+        if (mode == CHOICE_MODE_SINGLE) {
+            setItemChecked(position, true);
+        } else {
+            boolean checked = itemSelected.get(position);
+            setItemChecked(position, !checked);
+        }
+
         if (listener != null) {
             listener.onAdapterItemClick(view, person, position);
         }
+    }
+
+    public SparseBooleanArray getCheckedItemPositions() {
+        if (mode == CHOICE_MODE_MULTIPLE) {
+            return itemSelected;
+        }
+        throw new IllegalStateException("invalid mode");
+    }
+
+    public int getCheckItemPosition() {
+        if (mode == CHOICE_MODE_SINGLE) {
+            return checkedPosition;
+        }
+        throw new IllegalStateException("invalid mode");
+    }
+
+    public void setItemChecked(int position, boolean isChecked) {
+        if (mode == CHOICE_MODE_SINGLE) {
+            if (checkedPosition != position) {
+                if (isChecked) {
+                    checkedPosition = position;
+                    notifyDataSetChanged();
+                }
+            } else {
+                if (!isChecked) {
+                    checkedPosition = INVALID_POSITION;
+                    notifyDataSetChanged();
+                }
+            }
+        } else {
+            boolean checked = itemSelected.get(position);
+            if (checked != isChecked) {
+                itemSelected.put(position, isChecked);
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void clearChecked() {
+        itemSelected.clear();
     }
 }

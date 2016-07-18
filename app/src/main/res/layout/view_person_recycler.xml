@@ -35,4 +35,13 @@
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/image_check"
+        android:src="@android:drawable/checkbox_off_background"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>
