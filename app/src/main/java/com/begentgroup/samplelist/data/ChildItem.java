@@ -5,4 +5,5 @@ package com.begentgroup.samplelist.data;
  */
 public class ChildItem {
     public String childName;
+    public float textSize;
 }
