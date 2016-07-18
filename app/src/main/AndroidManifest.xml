@@ -28,7 +28,8 @@
         <activity android:name=".ActorInfoActivity" />
         <activity android:name=".ExpandableListActivity" />
         <activity android:name=".SpinnerActivity" />
-        <activity android:name=".RecyclerActivity"></activity>
+        <activity android:name=".RecyclerActivity" />
+        <activity android:name=".RecyclerMultiActivity"></activity>
     </application>
 
 </manifest>

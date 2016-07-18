@@ -39,6 +39,8 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
             child.childName = childName;
             group.children.add(child);
         }
+
+        notifyDataSetChanged();
     }
     @Override
     public int getGroupCount() {
